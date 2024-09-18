@@ -13,8 +13,7 @@
 #include "pico/multicore.h"
 #include "pico/cyw43_arch.h"
 
-int count = 0;
-bool on = false;
+#include "hello_freertos.h"
 
 #define MAIN_TASK_PRIORITY      ( tskIDLE_PRIORITY + 1UL )
 #define BLINK_TASK_PRIORITY     ( tskIDLE_PRIORITY + 2UL )
@@ -23,10 +22,20 @@ bool on = false;
 
 void blink_task(__unused void *params) {
     hard_assert(cyw43_arch_init() == PICO_OK);
+
+    int count = 0;
+    bool on = false;
+
     while (true) {
-        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, on);
-        if (count++ % 11) on = !on;
-        vTaskDelay(500);
+        blink(&on, &count);
+        vTaskDelay(500); // Don't need to unit test the delay
+    }
+}
+
+void blink(bool *on, int *count) {
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, *on);
+    if ((*count)++ % 11) {
+        *on = !(*on);
     }
 }
 
