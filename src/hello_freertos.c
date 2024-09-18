@@ -6,6 +6,8 @@
 
 #include <stdio.h>
 
+#include "hello_freertos.h"
+
 #include "FreeRTOS.h"
 #include "task.h"
 
@@ -35,10 +37,16 @@ void main_task(__unused void *params) {
                 BLINK_TASK_STACK_SIZE, NULL, BLINK_TASK_PRIORITY, NULL);
     char c;
     while(c = getchar()) {
-        if (c <= 'z' && c >= 'a') putchar(c - 32);
-        else if (c >= 'A' && c <= 'Z') putchar(c + 32);
-        else putchar(c);
+        putchar(toggle_char(c));
     }
+}
+
+char toggle_char(char c) {
+    char toggledChar;
+    if (c <= 'z' && c >= 'a') toggledChar = c - 32;
+    else if (c >= 'A' && c <= 'Z') toggledChar = c + 32;
+    else toggledChar = c;
+    return toggledChar;
 }
 
 int main( void )
