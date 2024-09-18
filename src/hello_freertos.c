@@ -6,8 +6,6 @@
 
 #include <stdio.h>
 
-#include "hello_freertos.h"
-
 #include "FreeRTOS.h"
 #include "task.h"
 
