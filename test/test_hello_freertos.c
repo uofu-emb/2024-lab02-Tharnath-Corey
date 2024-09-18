@@ -10,7 +10,8 @@ void setUp(void) {}
 
 void tearDown(void) {}
 
-void test_blink_regular(void) {
+void test_blink_regular(void)
+{
     bool on = false;
     int count = 0;
 
@@ -21,7 +22,8 @@ void test_blink_regular(void) {
     TEST_ASSERT_TRUE_MESSAGE(count == 1, "Count did not increment properly.");
 }
 
-void test_blink_skipped(void) {
+void test_blink_skipped(void)
+{
     bool on = true;
     int count = 10;
 
@@ -32,7 +34,21 @@ void test_blink_skipped(void) {
     TEST_ASSERT_TRUE_MESSAGE(count == 11, "Count did not increment properly.");
 }
 
-int main (void)
+void test_variable_assignment()
+{
+    int x = 1;
+    TEST_ASSERT_TRUE_MESSAGE(x == 1, "Variable assignment failed.");
+}
+
+void test_multiplication(void)
+{
+    int x = 30;
+    int y = 6;
+    int z = x / y;
+    TEST_ASSERT_TRUE_MESSAGE(z == 5, "Multiplication of two integers returned incorrect value.");
+}
+
+int main(void)
 {
     stdio_init_all();
     sleep_ms(5000); // Give time for TTY to attach.
@@ -40,6 +56,8 @@ int main (void)
     UNITY_BEGIN();
     RUN_TEST(test_blink_regular);
     RUN_TEST(test_blink_skipped);
+    RUN_TEST(test_variable_assignment);
+    RUN_TEST(test_multiplication);
     sleep_ms(5000);
     return UNITY_END();
 }
