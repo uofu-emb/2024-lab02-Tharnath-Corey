@@ -4,7 +4,7 @@
 #include <unity.h>
 #include "unity_config.h"
 #include "pico/cyw43_arch.h"
-#include "hello_freertos.h"
+#include "lab2.h"
 
 void setUp(void) {}
 

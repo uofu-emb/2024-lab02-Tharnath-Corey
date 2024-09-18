@@ -1,4 +1,4 @@
-add_executable(mytest test_hello_freertos.c unity_config.c)
+add_executable(mytest test_hello_freertos.c unity_config.c ../src/lab2.c)
 
 target_link_libraries(mytest PRIVATE
   pico_stdlib

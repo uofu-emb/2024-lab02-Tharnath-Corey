@@ -13,7 +13,7 @@
 #include "pico/multicore.h"
 #include "pico/cyw43_arch.h"
 
-#include "hello_freertos.h"
+#include "lab2.h"
 
 #define MAIN_TASK_PRIORITY      ( tskIDLE_PRIORITY + 1UL )
 #define BLINK_TASK_PRIORITY     ( tskIDLE_PRIORITY + 2UL )
@@ -32,12 +32,7 @@ void blink_task(__unused void *params) {
     }
 }
 
-void blink(bool *on, int *count) {
-    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, *on);
-    if ((*count)++ % 11) {
-        *on = !(*on);
-    }
-}
+
 
 void main_task(__unused void *params) {
     xTaskCreate(blink_task, "BlinkThread",
@@ -46,14 +41,6 @@ void main_task(__unused void *params) {
     while(c = getchar()) {
         putchar(toggle_char(c));
     }
-}
-
-char toggle_char(char c) {
-    char toggledChar;
-    if (c <= 'z' && c >= 'a') toggledChar = c - 32;
-    else if (c >= 'A' && c <= 'Z') toggledChar = c + 32;
-    else toggledChar = c;
-    return toggledChar;
 }
 
 int main( void )
