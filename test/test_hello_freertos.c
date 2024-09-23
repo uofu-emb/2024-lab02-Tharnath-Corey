@@ -34,6 +34,14 @@ void test_blink_skipped(void)
     TEST_ASSERT_TRUE_MESSAGE(count == 12, "Count did not increment properly.");
 }
 
+void test_toggle_char(void)
+{
+    TEST_ASSERT_TRUE_MESSAGE(toggle_char('A') == 'a', "Invalid output while toggling to lowercase.");
+    TEST_ASSERT_TRUE_MESSAGE(toggle_char('x') == 'X', "Invalid output while toggling to uppercase.");
+    TEST_ASSERT_TRUE_MESSAGE(toggle_char('*') == '*', "Invalid output for special character.");
+
+}
+
 int main(void)
 {
     stdio_init_all();
