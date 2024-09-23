@@ -11,6 +11,8 @@ char toggle_char(char c) {
 
 void blink(bool *on, int *count) {
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, *on);
+    // Post increment operator means that count is incremented
+    // after the modulo operator
     if ((*count)++ % 11) {
         *on = !(*on);
     }

@@ -15,35 +15,37 @@
 
 #include "lab2.h"
 
-#define MAIN_TASK_PRIORITY      ( tskIDLE_PRIORITY + 1UL )
-#define BLINK_TASK_PRIORITY     ( tskIDLE_PRIORITY + 2UL )
+#define MAIN_TASK_PRIORITY (tskIDLE_PRIORITY + 1UL)
+#define BLINK_TASK_PRIORITY (tskIDLE_PRIORITY + 2UL)
 #define MAIN_TASK_STACK_SIZE configMINIMAL_STACK_SIZE
 #define BLINK_TASK_STACK_SIZE configMINIMAL_STACK_SIZE
 
-void blink_task(__unused void *params) {
+void blink_task(__unused void *params)
+{
     hard_assert(cyw43_arch_init() == PICO_OK);
 
     int count = 0;
     bool on = false;
 
-    while (true) {
+    while (true)
+    {
         blink(&on, &count);
         vTaskDelay(500); // Don't need to unit test the delay
     }
 }
 
-
-
-void main_task(__unused void *params) {
+void main_task(__unused void *params)
+{
     xTaskCreate(blink_task, "BlinkThread",
                 BLINK_TASK_STACK_SIZE, NULL, BLINK_TASK_PRIORITY, NULL);
     char c;
-    while(c = getchar()) {
+    while (c = getchar())
+    {
         putchar(toggle_char(c));
     }
 }
 
-int main( void )
+int main(void)
 {
     stdio_init_all();
     const char *rtos_name;
