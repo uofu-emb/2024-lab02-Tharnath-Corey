@@ -59,11 +59,10 @@ add_compile_definitions(
     )
 
 # This is where your project header files are located.
-include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # The main executable is defined inside the src directory.
 add_subdirectory(src)
-add_subdirectory(blink)
 
 # The test configuration is inside the test directory.
 include(CTest)
