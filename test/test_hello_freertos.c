@@ -6,7 +6,9 @@
 #include "pico/cyw43_arch.h"
 #include "lab2.h"
 
-void setUp(void) {}
+void setUp(void)
+{
+}
 
 void tearDown(void) {}
 
@@ -39,17 +41,18 @@ void test_toggle_char(void)
     TEST_ASSERT_TRUE_MESSAGE(toggle_char('A') == 'a', "Invalid output while toggling to lowercase.");
     TEST_ASSERT_TRUE_MESSAGE(toggle_char('x') == 'X', "Invalid output while toggling to uppercase.");
     TEST_ASSERT_TRUE_MESSAGE(toggle_char('*') == '*', "Invalid output for special character.");
-
 }
 
 int main(void)
 {
     stdio_init_all();
-    sleep_ms(10000); // Give time for TTY to attach.
+    sleep_ms(5000); // Give time for TTY to attach.
+    hard_assert(cyw43_arch_init() == PICO_OK); // Init should only occur once
     printf("Start tests\n");
     UNITY_BEGIN();
     RUN_TEST(test_blink_regular);
     RUN_TEST(test_blink_skipped);
-    sleep_ms(10000);
+    RUN_TEST(test_toggle_char);
+    sleep_ms(5000);
     return UNITY_END();
 }
